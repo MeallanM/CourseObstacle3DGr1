@@ -14,11 +14,19 @@ public class Player : MonoBehaviour
         _animator = GetComponentInChildren<Animator>();
         _playerInputActions = new PlayerInputActions();
         _playerInputActions.Player.Enable();
+        _playerInputActions.Player.Dance.performed += Dance_performed;
+
         _rb = GetComponent<Rigidbody>();
+    }
+
+    private void Dance_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        _animator.SetBool("isDancing", true);
     }
 
     private void OnDestroy()
     {
+        _playerInputActions.Player.Dance.performed -= Dance_performed;
         _playerInputActions.Player.Disable();
     }
 
@@ -52,11 +60,18 @@ public class Player : MonoBehaviour
                 , _playerRotationSpeed * Time.deltaTime);
 
             // Jouer l'animation de marche
+            _animator.SetBool("isDancing", false);
            _animator.SetBool("isWalking", true);
         }
         else
         {
             _animator.SetBool("isWalking", false);
+            //_animator.SetBool("isDancing", false);
         }
+    }
+
+    public void EndGamePlayer()
+    {
+        Destroy(gameObject);
     }
 }

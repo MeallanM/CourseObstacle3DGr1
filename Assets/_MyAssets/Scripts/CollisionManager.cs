@@ -23,11 +23,10 @@ public class CollisionManager : MonoBehaviour
                     m.material = _hitMaterial;
                 }
             }
-            
+
 
             //Augmenter le nombre de collision
-            GameManager gameManager = FindAnyObjectByType<GameManager>();
-            gameManager.AddCollision(_collisionValue);
+            GameManager.Instance.AddCollision(_collisionValue);
 
             _estToucher = true;
         }
