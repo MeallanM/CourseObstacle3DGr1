@@ -1,7 +1,14 @@
+using System;
 using UnityEngine;
-
 public class Player : MonoBehaviour
 {
+    public static event EventHandler OnPlayerPaused;
+
+    public static void TriggerOnPlayerPause(object sender)
+    {
+        OnPlayerPaused?.Invoke(sender, null);
+    }
+
     [SerializeField] private float _playerSpeed = 10f;
     [SerializeField] private float _playerRotationSpeed = 1000f;
 
@@ -15,8 +22,14 @@ public class Player : MonoBehaviour
         _playerInputActions = new PlayerInputActions();
         _playerInputActions.Player.Enable();
         _playerInputActions.Player.Dance.performed += Dance_performed;
+        _playerInputActions.Player.Pause.performed += Pause_performed;
 
         _rb = GetComponent<Rigidbody>();
+    }
+
+    private void Pause_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        OnPlayerPaused?.Invoke(this,EventArgs.Empty);
     }
 
     private void Dance_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)

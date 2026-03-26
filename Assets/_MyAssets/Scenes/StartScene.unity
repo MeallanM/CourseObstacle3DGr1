@@ -1805,7 +1805,7 @@ GameObject:
   - component: {fileID: 1221328495}
   - component: {fileID: 1221328494}
   m_Layer: 0
-  m_Name: BtQuit
+  m_Name: BtCloseIns
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3018,6 +3018,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startPanel: {fileID: 1445359065}
   instructionPanel: {fileID: 895389121}
+  startBtn: {fileID: 167563489}
+  closeBtnInstructions: {fileID: 1221328494}
 --- !u!1 &1758727512
 GameObject:
   m_ObjectHideFlags: 0

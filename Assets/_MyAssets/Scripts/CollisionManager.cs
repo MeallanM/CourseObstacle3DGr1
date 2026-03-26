@@ -1,7 +1,14 @@
+using System;
 using UnityEngine;
 
 public class CollisionManager : MonoBehaviour
 {
+    public static event EventHandler<OnCollisionOccuredEventArgs> OnCollisionOccured;
+
+    public class OnCollisionOccuredEventArgs: EventArgs
+    {
+        public int CollisionValue;
+    }
     [SerializeField] private Material _hitMaterial = default(Material);
     [SerializeField] private int _collisionValue = 1;
 
@@ -23,11 +30,11 @@ public class CollisionManager : MonoBehaviour
                     m.material = _hitMaterial;
                 }
             }
-
-
-            //Augmenter le nombre de collision
-            GameManager.Instance.AddCollision(_collisionValue);
-
+            // le ? regarde si il y as qqn qui écoute, si oui, il déclenche l'event. sinon, il ne le declenche pas
+            OnCollisionOccured?.Invoke(this, new OnCollisionOccuredEventArgs
+            {
+                CollisionValue = _collisionValue
+            });
             _estToucher = true;
         }
 
